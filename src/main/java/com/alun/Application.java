@@ -1,7 +1,9 @@
 package com.alun;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+@Slf4j
 public class Application {
     private static volatile boolean running = true;
 
@@ -18,11 +20,11 @@ public class Application {
                     running = false;
                     Application.class.notify();
                 }
-                System.out.println("服务开始关闭");
+                log.info("服务开始关闭");
             }
         });
 
-        System.out.println("服务已启动===");
+        log.info("服务已启动===");
         synchronized (Application.class) {
             while (running) {
                 try {
@@ -32,7 +34,7 @@ public class Application {
                 }
             }
         }
-        System.out.println("服务已关闭===");
+        log.info("服务已关闭===");
 
     }
 }
